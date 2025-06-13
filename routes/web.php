@@ -20,3 +20,13 @@ Route::get('/news/create', [NewsController::class, 'create'])->name('news.create
 Route::post('/news', [NewsController::class, 'store'])->name('news.store');
 
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
